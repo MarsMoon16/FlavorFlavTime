@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Clock Hands</title>
+<style>
+    #clock {
+        position: relative;
+        width: 200px; /* Adjust the width as needed */
+        height: 200px; /* Adjust the height as needed */
+    }
+    #hour-hand, #minute-hand {
+        position: absolute;
+        line-height: 1;
+        transform-origin: 50% 100%;
+    }
+    #hour-hand {
+		
+        top: 175%;
+        left: 120%;
+        font-size: 50px; /* Adjust the font size as needed */
+    }
+    #minute-hand {
+	
+        top: 168%;
+        left: 117%;
+        font-size: 70px; /* Adjust the font size as needed */
+    }
+</style>
+</head>
+<body>
+    <form id="timeForm">
+        <label for="hours">Hours:</label>
+        <input type="number" id="hours" name="hours" min="0" max="23" required>
+        <label for="minutes">Minutes:</label>
+        <input type="number" id="minutes" name="minutes" min="0" max="59" required>
+        <button type="submit">Set Time</button>
+    </form>
+    <div id="clock">
+        <img src="flav.jpg" alt="Clock">
+        <div id="hour-hand">&uarr;</div> <!-- Unicode up arrow -->
+        <div id="minute-hand">&uarr;</div> <!-- Unicode up arrow -->
+    </div>
+
+    <script>
+        document.getElementById('timeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const hours = parseInt(document.getElementById('hours').value);
+            const minutes = parseInt(document.getElementById('minutes').value);
+            const hourHand = document.getElementById('hour-hand');
+            const minuteHand = document.getElementById('minute-hand');
+            const hourAngle = (hours % 12) * 30 + (minutes / 60) * 30; // 30 degrees per hour
+            const minuteAngle = minutes * 6; // 6 degrees per minute
+
+            hourHand.style.transform = `rotate(${hourAngle}deg)`; // Apply rotation only
+            minuteHand.style.transform = `rotate(${minuteAngle}deg)`; // Apply rotation only
+        });
+    </script>
+</body>
+</html>
